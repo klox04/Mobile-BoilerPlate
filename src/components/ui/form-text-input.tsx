@@ -1,7 +1,6 @@
-import { TextInput, type TextInputProps, View } from 'react-native';
+import { Text, TextInput, type TextInputProps, View } from "react-native";
 
-import { ThemedText } from '@/components/themed-text';
-import { useTheme } from '@/hooks/use-theme';
+import { useTheme } from "@/hooks/use-theme";
 
 type FormTextInputProps = TextInputProps & {
   error?: string;
@@ -21,20 +20,26 @@ export function FormTextInput({
 
   return (
     <View className="gap-2">
-      <ThemedText type="smallBold">{label}</ThemedText>
+      <Text className="text-sm font-bold leading-5 text-black dark:text-white">
+        {label}
+      </Text>
 
       <TextInput
         className={`h-[52px] rounded-[14px] border px-4 text-base text-black dark:text-white ${
-          error ? 'border-red-500' : 'border-zinc-300 dark:border-zinc-700'
-        } ${className ?? ''}`}
+          error ? "border-red-500" : "border-zinc-300 dark:border-zinc-700"
+        } ${className ?? ""}`}
         placeholderTextColor={placeholderTextColor ?? theme.textSecondary}
         {...inputProps}
       />
 
       {(error || helperText) && (
-        <ThemedText className={error ? 'text-red-500' : undefined} type="small">
+        <Text
+          className={`text-sm font-medium leading-5 ${
+            error ? "text-red-500" : "text-zinc-500 dark:text-zinc-400"
+          }`}
+        >
           {error ?? helperText}
-        </ThemedText>
+        </Text>
       )}
     </View>
   );
