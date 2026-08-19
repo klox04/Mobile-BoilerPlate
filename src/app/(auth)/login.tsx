@@ -1,67 +1,103 @@
-import { Link, router } from 'expo-router';
-import { useState } from 'react';
-import { Pressable, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { Link } from "expo-router";
+import { useState } from "react";
+import {
+  KeyboardAvoidingView,
+  Platform,
+  Pressable,
+  ScrollView,
+  Text,
+  View,
+} from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { FormTextInput } from '@/components/ui/form-text-input';
+import { FormTextInput } from "@/components/ui/form-text-input";
 
 export default function LoginScreen() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const handleSignUp = () => {
+    // Handle sign-up logic here (e.g., form validation, API call)a
+    // For now, we'll just navigate to the main app screen after "signing up"
+    // router.replace('/(tabs)');
+    console.log(
+      "Sign-up button pressed",
+      "name" + email + "",
+      "passwords" + password + "",
+    );
+  };
   return (
-    <ThemedView className="flex-1">
-      <SafeAreaView className="flex-1 justify-center p-6">
-        <View className="w-full max-w-[440px] self-center gap-8">
-          <View className="gap-2">
-            <ThemedText type="title">Welcome back</ThemedText>
-            <ThemedText themeColor="textSecondary">
-              Sign in to continue to your account.
-            </ThemedText>
-          </View>
+    <View className="flex-1 bg-white dark:bg-black">
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={{ flex: 1 }}
+      >
+        <SafeAreaView className="flex-1">
+          <ScrollView
+            automaticallyAdjustKeyboardInsets={Platform.OS === "ios"}
+            contentContainerStyle={{
+              flexGrow: 1,
+              justifyContent: "center",
+              padding: 24,
+              paddingBottom: 2,
+            }}
+            keyboardDismissMode="interactive"
 
-          <View className="gap-6">
-            <FormTextInput
-              autoCapitalize="none"
-              autoComplete="email"
-              keyboardType="email-address"
-              label="Email"
-              onChangeText={setEmail}
-              placeholder="you@example.com"
-              value={email}
-            />
+            keyboardShouldPersistTaps="handled"
+          >
+            <View className="w-full max-w-[440px] self-center gap-8">
+              <View className="gap-2">
+                <Text className="text-5xl font-semibold leading-[52px] text-black dark:text-white">
+                  Welcome back
+                </Text>
+                <Text className="text-base font-medium leading-6 text-zinc-500 dark:text-zinc-400">
+                  Sign in to continue to your account.
+                </Text>
+              </View>
 
-            <FormTextInput
-              autoCapitalize="none"
-              autoComplete="password"
-              label="Password"
-              onChangeText={setPassword}
-              placeholder="Enter your password"
-              secureTextEntry
-              value={password}
-            />
+              <View className="gap-6">
+                <FormTextInput
+                  autoCapitalize="none"
+                  autoComplete="email"
+                  keyboardType="email-address"
+                  label="Email"
+                  onChangeText={setEmail}
+                  placeholder="you@example.com"
+                  value={email}
+                />
 
-            <Pressable
-              accessibilityRole="button"
-              className="h-[52px] items-center justify-center rounded-[14px] bg-blue-600 active:opacity-80"
-              onPress={() => router.replace('/(tabs)')}
-            >
-              <ThemedText className="font-bold text-white">Log in</ThemedText>
-            </Pressable>
-          </View>
+                <FormTextInput
+                  autoCapitalize="none"
+                  autoComplete="password"
+                  label="Password"
+                  onChangeText={setPassword}
+                  placeholder="Enter your password"
+                  secureTextEntry
+                  value={password}
+                />
 
-          <View className="flex-row justify-center gap-2">
-            <ThemedText themeColor="textSecondary">Don&apos;t have an account?</ThemedText>
-            <Link href="/(auth)/sign-up" asChild>
-              <Pressable>
-                <ThemedText type="linkPrimary">Sign up</ThemedText>
-              </Pressable>
-            </Link>
-          </View>
-        </View>
-      </SafeAreaView>
-    </ThemedView>
+                <Pressable
+                  accessibilityRole="button"
+                  className="h-[52px] items-center justify-center rounded-[14px] bg-blue-600 active:opacity-80"
+                  onPress={handleSignUp}
+                >
+                  <Text className="font-bold text-white">Log in</Text>
+                </Pressable>
+              </View>
+
+              <View className="flex-row justify-center gap-2">
+                <Text className="text-zinc-500 dark:text-zinc-400">
+                  Don&apos;t have an account?
+                </Text>
+                <Link href="/(auth)/sign-up" asChild>
+                  <Pressable>
+                    <Text className="text-blue-500">Sign up</Text>
+                  </Pressable>
+                </Link>
+              </View>
+            </View>
+          </ScrollView>
+        </SafeAreaView>
+      </KeyboardAvoidingView>
+    </View>
   );
 }
