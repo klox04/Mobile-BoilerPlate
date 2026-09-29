@@ -51,7 +51,7 @@ export default function SplashScreenRoute() {
     >
       <StatusBar hidden />
       <VideoView
-        allowsFullscreen={false}
+        fullscreenOptions={{ enable: false }}
         allowsPictureInPicture={false}
         contentFit="cover"
         nativeControls={false}
